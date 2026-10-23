@@ -7,5 +7,7 @@ AnimatorOverrideController:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: SwingController
-  m_Controller: {fileID: 0}
-  m_Clips: []
+  m_Controller: {fileID: 9100000, guid: 69f1e5208321a0a4f939a1635f9642bd, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 6ba68a4f06970db4d8e4b935ce7aaa40, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 024a016589ece124dbaee9c52ef4a53d, type: 2}
