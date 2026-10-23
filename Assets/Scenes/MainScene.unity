@@ -98670,7 +98670,7 @@ GameObject:
   - component: {fileID: 23274457807079258}
   - component: {fileID: 64528356990842856}
   m_Layer: 0
-  m_Name: SM_Prop_SolarPanel_03_Panel
+  m_Name: SM_Prop_SolarPanel_03_Panel_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -98689,7 +98689,7 @@ GameObject:
   - component: {fileID: 23274456612141618}
   - component: {fileID: 64528356099115648}
   m_Layer: 0
-  m_Name: SM_Prop_SolarPanel_03_Panel
+  m_Name: SM_Prop_SolarPanel_03_Panel_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
