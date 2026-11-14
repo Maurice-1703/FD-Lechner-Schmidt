@@ -18,7 +18,7 @@ public class BulletController : MonoBehaviour
     {
         yield return new WaitForSeconds(lifetime);
 
-        Destroy(gameObject);
+        DestroyBullet();
     }
 
     private void OnCollisionEnter(Collision collision)
