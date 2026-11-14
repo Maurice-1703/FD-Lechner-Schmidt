@@ -11,6 +11,13 @@ public class CannonController : MonoBehaviour
     [SerializeField] private Transform firePoint; // Position und Ausrichtung, von der aus das Projektil gespawnt wird
 
     [SerializeField] private float projectileSpeed = 30f; // Geschwindigkeit des Projektils
+    private PlayerController player; // verwaltet das gemeinsame Magazin aller Kanonen
+
+    private void Awake()
+    {
+        // PlayerController liegt auf dem Schiff, also auf einem Parent-Objekt der Kanone
+        player = GetComponentInParent<PlayerController>();
+    }
 
     private void OnEnable()
     {
@@ -33,6 +40,9 @@ public class CannonController : MonoBehaviour
 
     private void Shoot()
     {
+        // Magazin leer: nicht schießen
+        if (player != null && !player.TryUseBullet()) return;
+
         // Erstellt ein neues Projektil an der Position des FirePoints
         GameObject projectile = Instantiate(
             projectilePrefab,

@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -17,17 +19,35 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float rollAcceleration;
     [SerializeField] private float lookSensitivity;
 
-    
+    [Header("Distance Display")]
+    [SerializeField] private Transform distanceTarget;  // GameObject aus der Szene, zu dem die Entfernung gemessen wird
+    [SerializeField] private TMP_Text distanceText;     // Text (TMP) auf dem Cockpit-Display
+    [SerializeField] private string distanceLabel = "Distance: "; // Text vor der Zahl
+    [SerializeField] private RectTransform compassNeedle;         // Pfeil auf dem Display, das Sprite muss nach oben zeigen
+
+    [Header("Magazine")]
+    [SerializeField] private int magazineSize = 10;       // maximale Anzahl an Patronen
+    [SerializeField] private GameObject bulletIconPrefab; // UI-Image einer einzelnen Patrone
+    [SerializeField] private Transform magazineContainer; // Objekt oben links mit Horizontal Layout Group
+
+
     private Rigidbody rb;
     private float thrustInput, rollInput;
     private Vector2 lookInput;
     private bool inCockpit = false;
+
+    private int currentAmmo;                                                // aktuell verfügbare Patronen
+    private readonly List<GameObject> bulletIcons = new List<GameObject>(); // ein Icon pro Patrone
 
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
+
+        // Mit vollem Magazin starten
+        currentAmmo = magazineSize;
+        CreateBulletIcons();
     }
 
     private void OnEnable()
@@ -36,6 +56,9 @@ public class PlayerController : MonoBehaviour
         rollAction.action.Enable();
         lookAction.action.Enable();
         switchCameraAction.action.Enable();
+
+        // Bei jedem zerstörten Projektil eine Patrone zurückgeben
+        BulletController.OnBulletDestroyed += RestoreBullet;
 
         // Cursor in der Mitte fixieren und verstecken
         Cursor.lockState = CursorLockMode.Locked;
@@ -48,6 +71,9 @@ public class PlayerController : MonoBehaviour
         rollAction.action.Disable();
         lookAction.action.Disable();
         switchCameraAction.action.Disable();
+
+        // Event wieder abmelden, damit kein deaktiviertes Objekt aufgerufen wird
+        BulletController.OnBulletDestroyed -= RestoreBullet;
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
@@ -63,6 +89,13 @@ public class PlayerController : MonoBehaviour
         // Nur im Frame reagieren, in dem C gedrückt wurde (verhindert, dass die Kamera mehrmals gewechselt wird, wenn C gehalten wird)
         if (switchCameraAction.action.WasPressedThisFrame())
             SetView(!inCockpit);
+    }
+
+    private void LateUpdate()
+    {
+        // Läuft nach allen Bewegungen des Frames; so zeigt das Display immer die aktuelle Entfernung
+        UpdateDistanceDisplay();
+        UpdateCompass();
     }
 
     private void FixedUpdate()
@@ -88,5 +121,67 @@ public class PlayerController : MonoBehaviour
         inCockpit = toggle;
         cockpitCamera.SetActive(toggle);
         thirdPersonCamera.SetActive(!toggle);
+    }
+
+    private void UpdateDistanceDisplay()
+    {
+        if (distanceTarget == null || distanceText == null) return;
+
+        // 1 Unity Einheit = 1 Meter
+        float distance = Vector3.Distance(transform.position, distanceTarget.position);
+
+        // rundet auf ganze Meter, e.g. "Distance: 128 m"
+        distanceText.text = $"{distanceLabel}{distance:0} m";
+    }
+
+    private void UpdateCompass()
+    {
+        if (distanceTarget == null || compassNeedle == null) return;
+
+        // Position des Ziels aus Sicht des Schiffs: x = rechts, y = oben, z = vorne
+        Vector3 local = transform.InverseTransformPoint(distanceTarget.position);
+
+        // Draufsicht: Winkel zwischen "geradeaus" und dem Ziel, im Uhrzeigersinn in Grad
+        float angle = Mathf.Atan2(local.x, local.z) * Mathf.Rad2Deg;
+
+        // UI-Elemente drehen bei positivem Z gegen den Uhrzeigersinn, deshalb das Minus
+        compassNeedle.localRotation = Quaternion.Euler(0f, 0f, -angle);
+    }
+
+
+    // ---------- Magazin ----------
+    // Wird von den Kanonen vor jedem Schuss aufgerufen, gibt false zurück, wenn das Magazin leer ist
+    public bool TryUseBullet()
+    {
+        if (currentAmmo <= 0) return false;
+
+        currentAmmo--;
+        UpdateMagazineUI();
+        return true;
+    }
+
+    // Wird aufgerufen, sobald ein Projektil zerstört wurde
+    private void RestoreBullet()
+    {
+        currentAmmo = Mathf.Min(currentAmmo + 1, magazineSize); // nie mehr als die Magazingröße
+        UpdateMagazineUI();
+    }
+
+    // Erzeugt beim Start ein Icon pro Patrone
+    private void CreateBulletIcons()
+    {
+        if (bulletIconPrefab == null || magazineContainer == null) return;
+
+        for (int i = 0; i < magazineSize; i++)
+            bulletIcons.Add(Instantiate(bulletIconPrefab, magazineContainer));
+
+        UpdateMagazineUI();
+    }
+
+    // Zeigt genau so viele Icons an, wie Patronen verfügbar sind
+    private void UpdateMagazineUI()
+    {
+        for (int i = 0; i < bulletIcons.Count; i++)
+            bulletIcons[i].SetActive(i < currentAmmo);
     }
 }
