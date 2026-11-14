@@ -463,6 +463,9 @@ MonoBehaviour:
   distanceText: {fileID: 8647590142313466466}
   distanceLabel: 'Distance: '
   compassNeedle: {fileID: 5113816936945602810}
+  magazineSize: 10
+  bulletIconPrefab: {fileID: 9017785819420451821, guid: e0691964516b65c468126210acca828a, type: 3}
+  magazineContainer: {fileID: 0}
 --- !u!54 &5522893710145661809
 Rigidbody:
   m_ObjectHideFlags: 0
