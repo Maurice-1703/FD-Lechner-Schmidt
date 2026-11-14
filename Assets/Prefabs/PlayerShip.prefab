@@ -316,54 +316,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 43761958168828868, guid: be6a24e572e2b004d8e46c229fa84129, type: 2}
---- !u!1 &2061397481613295092
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1520677484818135505}
-  - component: {fileID: 6066135844375684933}
-  m_Layer: 6
-  m_Name: Right Cannon Right Bullet
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1520677484818135505
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2061397481613295092}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.192, y: 1.747, z: 6.869}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6279723360255001235}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6066135844375684933
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2061397481613295092}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d92728b95cb546a5ae8cb0c4e838e13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CannonController
-  shootAction: {fileID: -211466366549226858, guid: 7f40ad16bdb1748ce881c5a6bd920d39, type: 3}
-  projectilePrefab: {fileID: 7775732762339062885, guid: 294a7b29a6f6040039b3933437506dc4, type: 3}
-  firePoint: {fileID: 1520677484818135505}
-  projectileSpeed: 30
 --- !u!1 &2497978215370134113
 GameObject:
   m_ObjectHideFlags: 0
@@ -402,9 +354,7 @@ Transform:
   - {fileID: 7719984289458333079}
   - {fileID: 3121105792902926620}
   - {fileID: 8107645282445947934}
-  - {fileID: 7381865685355263157}
   - {fileID: 3042638348406396447}
-  - {fileID: 1520677484818135505}
   - {fileID: 7146067457853251227}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 5.364, y: 36.607, z: 0.002}
@@ -1418,7 +1368,7 @@ GameObject:
   - component: {fileID: 8107645282445947934}
   - component: {fileID: 3787292013215622596}
   m_Layer: 6
-  m_Name: Left Cannon Right Bullet
+  m_Name: Left Cannon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1847,7 +1797,7 @@ GameObject:
   - component: {fileID: 3042638348406396447}
   - component: {fileID: 8656662421445768195}
   m_Layer: 6
-  m_Name: Right Cannon Left Bullet
+  m_Name: Right Cannon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2339,51 +2289,3 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!1 &8472056404241510337
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7381865685355263157}
-  - component: {fileID: 8069563605406108}
-  m_Layer: 6
-  m_Name: Left Cannon Left Bullet
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7381865685355263157
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8472056404241510337}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.554, y: 1.596, z: 7.712}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6279723360255001235}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8069563605406108
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8472056404241510337}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d92728b95cb546a5ae8cb0c4e838e13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CannonController
-  shootAction: {fileID: -211466366549226858, guid: 7f40ad16bdb1748ce881c5a6bd920d39, type: 3}
-  projectilePrefab: {fileID: 7775732762339062885, guid: 294a7b29a6f6040039b3933437506dc4, type: 3}
-  firePoint: {fileID: 7381865685355263157}
-  projectileSpeed: 30
